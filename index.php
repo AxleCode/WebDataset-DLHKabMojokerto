@@ -1,63 +1,53 @@
-<?php 
-	session_start();
-  include 'db.php';
- 
-	// cek apakah yang mengakses halaman ini sudah login
-	if($_SESSION['id_admin']!="1"){
-		echo '<script>window.location="login.php"</script>';
-    echo "<div class='alert'>Gagal!</div>";
-	}
+<?php
+    include 'db.php';
 
-  $logoweb = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 1");
-  $lw = mysqli_fetch_object($logoweb);
+    $datasekretariat = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='2'");
+    $jumlahdatasetsekretariat = mysqli_num_rows($datasekretariat);
 
+    $datataling = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='10'");
+    $jumlahdatasettaling = mysqli_num_rows($datataling);
+
+    $datapenaatan = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='4'");
+    $jumlahdatasetpenaatan = mysqli_num_rows($datapenaatan);
+
+    $datapengendalian = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='5'");
+    $jumlahdatasetpengendalian = mysqli_num_rows($datapengendalian);
+
+    $datapengelolaan = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='6'");
+    $jumlahdatasetpengelolaan = mysqli_num_rows($datapengelolaan);
+
+    $datalabo = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='7'");
+    $jumlahdatasetlab = mysqli_num_rows($datalabo);
   
-  $datasekretariat = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='2'");
-  $jumlahdatasetsekretariat = mysqli_num_rows($datasekretariat);
+    $logoweb = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 1");
+    $lw = mysqli_fetch_object($logoweb);
 
-  $datataling = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='10'");
-  $jumlahdatasettaling = mysqli_num_rows($datataling);
+    $kontakwebdlh = mysqli_query($koneksi, "SELECT * FROM kontak");
+    $kontak = mysqli_fetch_object($kontakwebdlh);
 
-  $datapenaatan = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='4'");
-  $jumlahdatasetpenaatan = mysqli_num_rows($datapenaatan);
+    $logosek = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 2");
+    $ls = mysqli_fetch_object($logosek);
 
-  $datapengendalian = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='5'");
-  $jumlahdatasetpengendalian = mysqli_num_rows($datapengendalian);
+    $logotata = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 3");
+    $lt = mysqli_fetch_object($logotata);
 
-  $datapengelolaan = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='6'");
-  $jumlahdatasetpengelolaan = mysqli_num_rows($datapengelolaan);
+    $logopenaatan = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 4");
+    $lp = mysqli_fetch_object($logopenaatan);
 
-  $datalabo = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='7'");
-  $jumlahdatasetlab = mysqli_num_rows($datalabo);
+    $logopengendalian = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 5");
+    $lpe = mysqli_fetch_object($logopengendalian);
 
-  $kontakwebdlh = mysqli_query($koneksi, "SELECT * FROM kontak");
-  $kontak = mysqli_fetch_object($kontakwebdlh);
+    $logosampah = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 6");
+    $lsa = mysqli_fetch_object($logosampah);
 
-  $logosek = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 2");
-  $ls = mysqli_fetch_object($logosek);
-
-  $logotata = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 3");
-  $lt = mysqli_fetch_object($logotata);
-
-  $logopenaatan = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 4");
-  $lp = mysqli_fetch_object($logopenaatan);
-
-  $logopengendalian = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 5");
-  $lpe = mysqli_fetch_object($logopengendalian);
-
-  $logosampah = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 6");
-  $lsa = mysqli_fetch_object($logosampah);
-
-  $logolab = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 7");
-  $ll = mysqli_fetch_object($logolab);
-
-  ?>
-
+    $logolab = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 7");
+    $ll = mysqli_fetch_object($logolab);
+?>  
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Superadmin - Dinas Lingkungan Hidup Kab Mojokerto</title>
+    <title>Dataset - Dinas Lingkungan Hidup Kab Mojokerto</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
@@ -121,7 +111,6 @@
           
         </div>
         <div class="col-lg-5 px-5 text-end">
-            <small>Selamat Datang <a class="">Super Admin DLH&nbsp;</a></small>
           <div class="h-100 d-inline-flex align-items-center">
             
                <small id="jam"> </small>
@@ -136,7 +125,7 @@
     <nav
     class="navbar navbar-expand-lg bg-succes navbar-light sticky-top pl-5 px-4 px-lg-5"
   >
-    <a href="index.html" class="navbar-brand d-flex align-items-center ">
+    <a href="index.php" class="navbar-brand d-flex align-items-center ">
       <h1 class="m-0">
         <img
           class="img-fluid me-3"
@@ -157,14 +146,41 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <div class="navbar-nav mx-auto bg-light rounded pe-4 py-3 py-lg-0">
+        <a href="index.php" class="nav-item nav-link active">Semua Dataset</a>
         <a href="<?php echo $kontak->webutama ?>" target="blank" class="nav-item nav-link">DLH Kab Mojokerto</a>
-        <a href="superadmin.php" class="nav-item nav-link active">Semua Dataset</a>
-        <a href="superadminweb.php" class="nav-item nav-link ">Pengaturan Bidang</a>
-        <a href="superadminakun.php" class="nav-item nav-link">Pengaturan Akun</a>
-        <a href="superadminkontak.php" class="nav-item nav-link">Pengaturan Kontak</a>
+        <div class="nav-item dropdown">
+          <a
+            href="#"
+            class="nav-link"
+            >Bidang
+          </a>
+         
+          <div class="dropdown-menu bg-light border-0 m-0">
+            <a href="sekretariatpublic.php" class="dropdown-item"><?php echo $ls->nama_bidang ?></a>
+            <a href="btlpublic.php" class="dropdown-item"><?php echo $lt->nama_bidang ?></a>
+            <a href="penaatanpublic.php" class="dropdown-item"><?php echo $lp->nama_bidang ?></a>
+            <a href="pengendalianpublic.php" class="dropdown-item"><?php echo $lpe->nama_bidang ?></a>
+            <a href="persampahanpublic.php" class="dropdown-item"><?php echo $lsa->nama_bidang ?></a>
+            <a href="labpublic.php" class="dropdown-item"><?php echo $ll->nama_bidang?></a>
+            
+          </div>
+        </div>
+        <div class="nav-item dropdown">
+          <a 
+            href=""
+            class="nav-link"
+            >Panduan
+          </a>
+         
+          <div class="dropdown-menu bg-light border-0 m-0">
+            <a href="panduanpublic.php" target="blank" class="dropdown-item">Panduan Lihat Data</a>
+            <a href="panduanunduh.php" target="blank" class="dropdown-item">Panduan Unduh Data</a>
+            
+          </div>
+        </div>
       </div>
     </div>
-    <a href="logout.php" class="btn btn-danger px-3 d-none d-lg-block"><img src="img/logout.png" width="30px" alt=""> Logout</a>
+    <a href="login.php" class="btn btn-success px-3 d-none d-lg-block"><img src="" alt="">Login Admin</a>
   </nav>
     <!-- Navbar End -->
 
@@ -173,12 +189,12 @@
     <!-- Service Start -->
     <div class="container-xxl py-5">
       <div class="container">
-        <div class="text-center mx-auto" style="max-width: 500px">
+        <div class="text-center mx-auto" style="max-width: 800px" >
           <h1 class="display-6 mb-3">
-            Semua Dataset Bidang <br>DLH Kab Mojokerto
+            Satu Data Dinas Lingkungan Hidup<br>Kabupaten Mojokerto
           </h1>
         </div>
-        <div class="row g-4 justify-content-center">
+        <div class="row g-4 justify-content-center mt-5 ">
           <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
             <div class="service-item rounded h-100 p-5">
               <div class="d-flex align-items-center ms-n5 mb-4">
@@ -195,7 +211,7 @@
                 <h4 class="mb-0"><?php echo $ls->nama_bidang ?></h4>
               </div>
               <p class="mb-4">
-              <?php 
+                <?php 
               while($datasek=mysqli_fetch_array($datasekretariat)){
                
                       echo $datasek['nama_dataset'];
@@ -208,18 +224,19 @@
                       if($jumlahdatasetsekretariat==0){
                    ?>  
                       
-                      <a class="btn btn-light px-3 text-danger" href="sekretariatadmin.php">Belum Tersedia</a>
+                      <a class="btn btn-light px-3 text-danger" href="sekretariatpublic.php">Belum Tersedia</a>
                          
                       <?php
                       }
                       else{
 
                           ?>
-                          <a class="btn btn-light px-3" href="sekretariatadmin.php">Lihat</a>
+                          <a class="btn btn-light px-3" href="sekretariatpublic.php">Lihat</a>
                           <?php
 
                       }
                   ?>
+              
             </div>
           </div>
           <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
@@ -252,14 +269,14 @@
                       if($jumlahdatasettaling==0){
                    ?>  
                       
-                      <a class="btn btn-light px-3 text-danger" href="btladmin.php">Belum Tersedia</a>
+                      <a class="btn btn-light px-3 text-danger" href="btlpublic.php">Belum Tersedia</a>
                          
                       <?php
                       }
                       else{
 
                           ?>
-                          <a class="btn btn-light px-3" href="btladmin.php">Lihat</a>
+                          <a class="btn btn-light px-3" href="btlpublic.php">Lihat</a>
                           <?php
 
                       }
@@ -283,9 +300,9 @@
               </div>
               <p class="mb-4">
               <?php 
-              while($datape=mysqli_fetch_array($datapenaatan)){
+              while($datapena=mysqli_fetch_array($datapenaatan)){
                
-                      echo $datape['nama_dataset'];
+                      echo $datapena['nama_dataset'];
                       echo ", ";
                        
               }
@@ -295,14 +312,14 @@
                       if($jumlahdatasetpenaatan==0){
                    ?>  
                       
-                      <a class="btn btn-light px-3 text-danger" href="penaatanadmin.php">Belum Tersedia</a>
+                      <a class="btn btn-light px-3 text-danger" href="penaatanpublic.php">Belum Tersedia</a>
                          
                       <?php
                       }
                       else{
 
                           ?>
-                          <a class="btn btn-light px-3" href="penaatanadmin.php">Lihat</a>
+                          <a class="btn btn-light px-3" href="penaatanpublic.php">Lihat</a>
                           <?php
 
                       }
@@ -321,13 +338,13 @@
                     alt=""
                   />
                 </div>
-                <h4 class="mb-0"> <?php echo $lpe->nama_bidang ?></h4>
+                <h4 class="mb-0"><?php echo $lpe->nama_bidang ?></h4>
               </div>
               <p class="mb-4">
               <?php 
-              while($datapeng=mysqli_fetch_array($datapengendalian)){
+              while($datapengen=mysqli_fetch_array($datapengendalian)){
                
-                      echo $datapeng['nama_dataset'];
+                      echo $datapengen['nama_dataset'];
                       echo ", ";
                        
               }
@@ -337,14 +354,14 @@
                       if($jumlahdatasetpengendalian==0){
                    ?>  
                       
-                      <a class="btn btn-light px-3 text-danger" href="pengendalianadmin.php">Belum Tersedia</a>
+                      <a class="btn btn-light px-3 text-danger" href="pengendalianpublic.php">Belum Tersedia</a>
                          
                       <?php
                       }
                       else{
 
                           ?>
-                          <a class="btn btn-light px-3" href="pengendalianadmin.php">Lihat</a>
+                          <a class="btn btn-light px-3" href="pengendalianpublic.php">Lihat</a>
                           <?php
 
                       }
@@ -376,17 +393,17 @@
                 ?>
               </p>
               <?php
-                      if($jumlahdatasetpengelolaan==0){
+                      if($jumlahdatasetpengendalian==0){
                    ?>  
                       
-                      <a class="btn btn-light px-3 text-danger" href="persampahanadmin.php">Belum Tersedia</a>
+                      <a class="btn btn-light px-3 text-danger" href="persampahanpublic.php">Belum Tersedia</a>
                          
                       <?php
                       }
                       else{
 
                           ?>
-                          <a class="btn btn-light px-3" href="persampahanadmin.php">Lihat</a>
+                          <a class="btn btn-light px-3" href="persampahanpublic.php">Lihat</a>
                           <?php
 
                       }
@@ -409,10 +426,10 @@
               </div>
               <p class="mb-4">
               <?php 
-              while($datall=mysqli_fetch_array($datalabo)){
+              while($datalab=mysqli_fetch_array($datalabo)){
                
-                      echo $datall['nama_dataset'];
-                      echo ", ";
+                      echo $datalab['nama_dataset'];
+                      echo " ,";
                        
               }
                 ?>
@@ -421,18 +438,19 @@
                       if($jumlahdatasetlab==0){
                    ?>  
                       
-                      <a class="btn btn-light px-3 text-danger" href="labadmin.php">Belum Tersedia</a>
+                      <a class="btn btn-light px-3 text-danger" href="labpublic.php">Belum Tersedia</a>
                          
                       <?php
                       }
                       else{
 
                           ?>
-                          <a class="btn btn-light px-3" href="labadmin.php">Lihat</a>
+                          <a class="btn btn-light px-3" href="labpublic.php">Lihat</a>
                           <?php
 
                       }
                   ?>
+              
             </div>
           </div>
         </div>

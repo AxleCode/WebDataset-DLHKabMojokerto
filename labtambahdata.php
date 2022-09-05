@@ -16,20 +16,21 @@
   
   $datasekretariat = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='7'");
   $jumlahdataset = mysqli_num_rows($datasekretariat);
-  
+  $logolab = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 7");
+  $ll = mysqli_fetch_object($logolab);
   ?>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Laboratorium - Dinas Lingkungan Hidup Kab Mojokerto</title>
+    <title>Laboratorium Admin - Dinas Lingkungan Hidup Kab Mojokerto</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
 
     <!-- Favicon -->
-    <link href="img/kab.png" rel="icon" />
+    <link href="img/<?php echo $ll->nama_files ?>" rel="icon" />
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

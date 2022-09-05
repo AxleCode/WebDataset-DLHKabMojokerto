@@ -23,20 +23,21 @@
       }
 
     $idsek = mysqli_fetch_object($idsekretariat);
-
+    $logopenaatan = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 4");
+    $lp = mysqli_fetch_object($logopenaatan);
   ?>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Penaatan - Dinas Lingkungan Hidup Kab Mojokerto</title>
+    <title>Penaatan Admin - Dinas Lingkungan Hidup Kab Mojokerto</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
 
     <!-- Favicon -->
-    <link href="img/kab.png" rel="icon" />
+    <link href="img/<?php echo $lp->nama_files ?>" rel="icon" />
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

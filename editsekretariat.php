@@ -20,20 +20,21 @@
 
     $logoweb = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 1");
     $lw = mysqli_fetch_object($logoweb);
-
+    $logosek = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 2");
+    $ls = mysqli_fetch_object($logosek);
   ?>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Dataset - Dinas Lingkungan Hidup Kab Mojokerto</title>
+    <title>Sekretariat Admin - Dinas Lingkungan Hidup Kab Mojokerto</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
 
     <!-- Favicon -->
-    <link href="img/kab.png" rel="icon" />
+    <link href="img/<?php echo $ls->nama_files ?>" rel="icon" />
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -156,7 +157,7 @@
           </h1>
         </div>
 
-        <div class="container mt-3 text-left p-5">       
+        <div class="container mt-3 text-left p-5 pt-1">       
             <div class="container-xxl py-2">
                 <div class="container">
                   <div class="row g-5">
@@ -199,7 +200,7 @@
                                 id="subject"
                                 name="editdok"
                                 placeholder="Link Dokumen (Edit Link)"
-                                value="<?php echo $idsek->linkview ?>"
+                                value="<?php echo $idsek->linkedit ?>"
                                 required
                               />
                               <label for="subject">Link Dokumen (Edit Link)</label>
@@ -214,7 +215,7 @@
                                 id="subject"
                                 name="viewdok"
                                 placeholder="Link Dokumen (View Only Link)"
-                                value="<?php echo $idsek->linkedit ?>"
+                                value="<?php echo $idsek->linkview ?>"
                                 required
                               />
                               <label for="subject">Link Dokumen (View Only Link)</label>

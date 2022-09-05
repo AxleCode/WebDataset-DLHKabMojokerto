@@ -21,19 +21,21 @@
     $logoweb = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 1");
     $lw = mysqli_fetch_object($logoweb);
 
+    $logotata = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 3");
+    $lt = mysqli_fetch_object($logotata);
   ?>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Tata Lingkungan - Dinas Lingkungan Hidup Kab Mojokerto</title>
+    <title>Tata Lingkungan Admin - Dinas Lingkungan Hidup Kab Mojokerto</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
 
     <!-- Favicon -->
-    <link href="img/kab.png" rel="icon" />
+    <link href="img/<?php echo $lt->nama_files ?>" rel="icon" />
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -135,9 +137,9 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <div class="navbar-nav mx-auto bg-light rounded pe-4 py-3 py-lg-0">
         <a href="<?php echo $kontak->webutama ?>" target="blank" class="nav-item nav-link">DLH Kab Mojokerto</a>
-        <a href="sekretariatadmin.php" class="nav-item nav-link">Pengaturan Data</a>
-        <a href="sekretariataturweb.php" class="nav-item nav-link">Pengaturan Logo</a>
-        <a href="sekretariataturakun.php" class="nav-item nav-link">Pengaturan Akun</a>
+        <a href="btladmin.php" class="nav-item nav-link">Pengaturan Data</a>
+        <a href="btladminlogo.php" class="nav-item nav-link">Pengaturan Logo</a>
+        <a href="btladminakun.php" class="nav-item nav-link">Pengaturan Akun</a>
         
       </div>
     </div>
@@ -152,7 +154,7 @@
       <div class="container">
         <div class="text-center mx-auto" style="max-width: 1000px">
           <h1 class="display-6 mb-3">
-            Edit Dataset Bidang Sekretariat<br>DLH Kab Mojokerto
+            Edit Dataset Bidang Tata Lingkungan<br>DLH Kab Mojokerto
           </h1>
         </div>
 
@@ -199,7 +201,7 @@
                                 id="subject"
                                 name="editdok"
                                 placeholder="Link Dokumen (Edit Link)"
-                                value="<?php echo $idtata->linkview ?>"
+                                value="<?php echo $idtata->linkedit ?>"
                                 required
                               />
                               <label for="subject">Link Dokumen (Edit Link)</label>
@@ -214,7 +216,7 @@
                                 id="subject"
                                 name="viewdok"
                                 placeholder="Link Dokumen (View Only Link)"
-                                value="<?php echo $idtata->linkedit ?>"
+                                value="<?php echo $idtata->linkview ?>"
                                 required
                               />
                               <label for="subject">Link Dokumen (View Only Link)</label>

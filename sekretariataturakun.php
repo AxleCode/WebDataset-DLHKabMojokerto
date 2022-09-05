@@ -7,38 +7,49 @@
 		echo '<script>window.location="login.php"</script>';
     echo "<div class='alert'>Gagal!</div>";
 	}
-
+  
   $kontakwebdlh = mysqli_query($koneksi, "SELECT * FROM kontak");
-  $kontak = mysqli_fetch_object($kontakwebdlh);
+    $kontak = mysqli_fetch_object($kontakwebdlh);
 
-  $logoweb = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 1");
-  $lw = mysqli_fetch_object($logoweb);
-  
-  $datasekretariat = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='7'");
-  $jumlahdataset = mysqli_num_rows($datasekretariat);
-  
-  $idsekretariat = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id = '".$_GET['id']."'");
-  if(mysqli_num_rows($idsekretariat) == 0){
-      echo '<script>window.location="persampahanadmin.php"</script>';
-    }
+    $logoweb = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 1");
+    $lw = mysqli_fetch_object($logoweb);
 
-  $idsek = mysqli_fetch_object($idsekretariat);
-  $logolab = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 7");
-  $ll = mysqli_fetch_object($logolab);
-?>
+    $datasekretariat = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='2'");
+    $jumlahdataset = mysqli_num_rows($datasekretariat);
 
+    $akunsekretariat = mysqli_query($koneksi, "SELECT * FROM admin WHERE id_admin ='2'");
+    $ase = mysqli_fetch_object($akunsekretariat);
+
+    $logosek = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 2");
+    $ls = mysqli_fetch_object($logosek);
+
+    $logotata = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 3");
+    $lt = mysqli_fetch_object($logotata);
+
+    $logopenaatan = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 4");
+    $lp = mysqli_fetch_object($logopenaatan);
+
+    $logopengendalian = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 5");
+    $lpe = mysqli_fetch_object($logopengendalian);
+
+    $logosampah = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 6");
+    $lsa = mysqli_fetch_object($logosampah);
+
+    $logolab = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 7");
+    $ll = mysqli_fetch_object($logolab);
+  ?>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Laboratorium Admin - Dinas Lingkungan Hidup Kab Mojokerto</title>
+    <title>Sekretariat Admin - Dinas Lingkungan Hidup Kab Mojokerto</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
 
     <!-- Favicon -->
-    <link href="img/<?php echo $ll->nama_files ?>" rel="icon" />
+    <link href="img/<?php echo $ls->nama_files ?>" rel="icon" />
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -100,8 +111,8 @@
             if($_SESSION['id_admin']=='1'){
               echo "<a href='superadmin.php'>Super Admin DLH</a>";
             }
-            else if($_SESSION['id_admin']=='7'){
-              echo "Admin Persampahan DLH";
+            else if($_SESSION['id_admin']=='2'){
+              echo "Admin Sekretariat DLH";
             }
              ?>&nbsp;</a></small>
           <div class="h-100 d-inline-flex align-items-center">
@@ -118,7 +129,7 @@
     <nav
     class="navbar navbar-expand-lg bg-succes navbar-light sticky-top pl-5 px-4 px-lg-5"
   >
-    <a href="index.html" class="navbar-brand d-flex align-items-center ">
+    <a href="index.php" class="navbar-brand d-flex align-items-center ">
       <h1 class="m-0">
         <img
           class="img-fluid me-3"
@@ -140,9 +151,9 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <div class="navbar-nav mx-auto bg-light rounded pe-4 py-3 py-lg-0">
         <a href="<?php echo $kontak->webutama ?>" target="blank" class="nav-item nav-link">DLH Kab Mojokerto</a>
-        <a href="labadmin.php" class="nav-item nav-link active">Pengaturan Data</a>
-        <a href="logolab.php" class="nav-item nav-link">Pengaturan Logo</a>
-        <a href="akunlab.php" class="nav-item nav-link">Pengaturan Akun</a>
+        <a href="sekretariatadmin.php" class="nav-item nav-link ">Pengaturan Data</a>
+        <a href="sekretariataturweb.php" class="nav-item nav-link ">Pengaturan Logo</a>
+        <a href="sekretariataturakun.php" class="nav-item nav-link active">Pengaturan Akun</a>
         
       </div>
     </div>
@@ -153,81 +164,64 @@
   
 
     <!-- Service Start -->
-    <div class="container-xxl py-5 ">
+    <div class="container-xxl py-5">
       <div class="container">
         <div class="text-center mx-auto" style="max-width: 1000px">
           <h1 class="display-6 mb-3">
-            Edit Dataset UPDT Laboratorium<br>DLH Kab Mojokerto
+            Pengaturan Akun Sekretariat<br>DLH Kab Mojokerto
           </h1>
         </div>
 
-        <div class="container mt-3 text-left p-5 pt-1">       
+        <div class="container mt-6 py-6 text-left p-5 pt-3"> 
+            <p class="display-6">Akun Admin <?php echo $ls->nama_bidang ?></p>      
             <div class="container-xxl py-2">
                 <div class="container">
-                  <div class="row g-5">
+                  <div class="row g-1">
                     <div class="col-lg-9 wow fadeIn" data-wow-delay="0.1s">
                       <form action="" method="POST" enctype="multipart/form-data">
                         <div class="row g-3">
-                          <div class="col-md-12">
+                          <div class="col-md-8">
                             <div class="form-floating">
-                              <input
+                                <input
                                 type="text"
                                 class="form-control"
-                                id="name"
-                                name="namadok"
-                                placeholder="Nama Dokumen"
-                                value="<?php echo $idsek->nama_dataset ?>"
+                                name="usersekretariat"
+                                value="<?php echo $ase->username ?>"
                                 required
                               />
-                              <label for="name">Nama Dokumen</label>
-                            </div>
+                              <label for="name">Username Login</label>
+                             </div>
                           </div>
-                          <div class="col-md-12">
+                          <div class="col-md-8">
                             <div class="form-floating">
                               <input
-                                type="text"
+                                type="password"
                                 class="form-control"
                                 id="format"
-                                name="formatdok"
-                                placeholder="Format Dokumen"
-                                value="<?php echo $idsek->format_dataset ?>"
+                                placeholder="Password"
+                                name="pass1sekretariat"
                                 required
                               />
-                              <label for="name">Format Dokumen</label>
+                              <label for="name">Password</label>
                             </div>
                           </div>
-                          <div class="col-12">
+                          <div class="col-md-8">
                             <div class="form-floating">
                               <input
-                                type="text"
+                                type="password"
                                 class="form-control"
-                                id="subject"
-                                name="editdok"
-                                placeholder="Link Dokumen (Edit Link)"
-                                value="<?php echo $idsek->linkedit ?>"
+                                id="format"
+                                placeholder="Konfirmasi Password"
+                                name="pass2sekretariat"
                                 required
                               />
-                              <label for="subject">Link Dokumen (Edit Link)</label>
-                            </div>
-                          </div>
-
-                          <div class="col-12">
-                            <div class="form-floating">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="subject"
-                                name="viewdok"
-                                placeholder="Link Dokumen (View Only Link)"
-                                value="<?php echo $idsek->linkview ?>"
-                                required
-                              />
-                              <label for="subject">Link Dokumen (View Only Link)</label>
+                              <label for="name">Konfirmasi Password</label>
                             </div>
                           </div>
                           
                           <div class="col-12">
-                                <input type="submit" name="editdataset" value="Edit Dataset Persampahan" class="btn btn-primary py-2 px-4">
+                            <input type="submit" name="sekretariat" value="Ganti Password" class="btn btn-primary py-2 px-4"/>
+                           
                           </div>
                         </div>
                       </form>
@@ -237,32 +231,28 @@
               </div>
           </div>
           <?php 
-          if (isset($_POST['editdataset'])){
-              $namadok     = $_POST['namadok'];
-              $formatdok   = $_POST['formatdok'];
-              $viewdok     = ucwords($_POST['viewdok']);
-              $editdok     = ucwords($_POST['editdok']);
+                    if (isset($_POST['sekretariat'])) {
+                      $usersekretariat  = $_POST['usersekretariat'];
+                      $pass1sekretariat	= $_POST['pass1sekretariat'];
+						          $pass2sekretariat	= $_POST['pass2sekretariat'];
 
-            $update = mysqli_query($koneksi, "UPDATE dataset SET
-                            nama_dataset = '".$namadok ."',
-                            format_dataset = '".$formatdok ."',
-                            linkview = '".$viewdok ."',
-                            linkedit = '".$editdok."'
-                            WHERE id = '".$idsek->id."' 
-                      ");
-  
-              if ($update) {
-                echo '<script>alert("Edit Dataset UPTD Lab Berhasil!")</script>';
-                echo '<script>window.location="labadmin.php"</script>';
-              }else{
-                echo 'gagal'.mysqli_error($koneksi);
-              }
-            }
-            
-           ?>
-
-      </div>
-    </div>
+                      if ($pass2sekretariat != $pass1sekretariat) {
+                        echo '<script>alert("Gagal Password Tidak Sama!")</script>';
+                      }else{
+                        $updatepasssekretariat = mysqli_query($koneksi, "UPDATE admin SET
+                                  username = '".$usersekretariat."',
+                                  password = '".md5($pass1sekretariat)."'
+                                  WHERE id_admin = '2' ");
+                        if ($updatepasssekretariat) {
+                          
+                          echo '<script>alert("Update Profil Berhasil!")</script>';
+                          echo '<script>window.location="sekretariataturakun.php"</script>';
+                        }else{
+                          echo 'gagal'.mysqli_error($koneksi);
+                        }
+                      }
+                    }
+                ?>
     <!-- Service End -->
 
     

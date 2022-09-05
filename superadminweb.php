@@ -38,7 +38,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Web - Dinas Lingkungan Hidup Kab Mojokerto</title>
+    <title>SuperAdmin Web - Dinas Lingkungan Hidup Kab Mojokerto</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
@@ -138,7 +138,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <div class="navbar-nav mx-auto bg-light rounded pe-4 py-3 py-lg-0">
-        <a href="http://dlh.mojokertokab.go.id/" target="blank" class="nav-item nav-link">DLH Kab Mojokerto</a>
+        <a href="<?php echo $kontak->webutama ?>" target="blank" class="nav-item nav-link">DLH Kab Mojokerto</a>
         <a href="superadmin.php" class="nav-item nav-link">Semua Dataset</a>
         <a href="superadminweb.php" class="nav-item nav-link active">Pengaturan Bidang</a>
         <a href="superadminakun.php" class="nav-item nav-link">Pengaturan Akun</a>

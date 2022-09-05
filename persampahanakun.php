@@ -3,42 +3,41 @@
   include 'db.php';
  
 	// cek apakah yang mengakses halaman ini sudah login
-	if($_SESSION['id_admin']==''){
+	if($_SESSION['id_admin']!='1'&'6'){
 		echo '<script>window.location="login.php"</script>';
     echo "<div class='alert'>Gagal!</div>";
 	}
-
+  
   $kontakwebdlh = mysqli_query($koneksi, "SELECT * FROM kontak");
   $kontak = mysqli_fetch_object($kontakwebdlh);
 
   $logoweb = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 1");
   $lw = mysqli_fetch_object($logoweb);
   
-  $datasekretariat = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='7'");
+  $datasekretariat = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='6'");
   $jumlahdataset = mysqli_num_rows($datasekretariat);
-  
-  $idsekretariat = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id = '".$_GET['id']."'");
-  if(mysqli_num_rows($idsekretariat) == 0){
-      echo '<script>window.location="persampahanadmin.php"</script>';
-    }
 
-  $idsek = mysqli_fetch_object($idsekretariat);
-  $logolab = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 7");
-  $ll = mysqli_fetch_object($logolab);
-?>
+  $logosampah = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 6");
+  $lsa = mysqli_fetch_object($logosampah);
 
+  $akunpengelolaansampah = mysqli_query($koneksi, "SELECT * FROM admin WHERE id_admin ='6'");
+  $apesa= mysqli_fetch_object($akunpengelolaansampah);
+
+  $pengsamp = mysqli_query($koneksi, "SELECT * FROM logo WHERE id=6");
+  $pes = mysqli_fetch_object($pengsamp);
+  ?>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Laboratorium Admin - Dinas Lingkungan Hidup Kab Mojokerto</title>
+    <title>Persampahan Admin- Dinas Lingkungan Hidup Kab Mojokerto</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
 
     <!-- Favicon -->
-    <link href="img/<?php echo $ll->nama_files ?>" rel="icon" />
+    <link href="img/<?php echo $lsa->nama_files ?>" rel="icon" />
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -100,7 +99,7 @@
             if($_SESSION['id_admin']=='1'){
               echo "<a href='superadmin.php'>Super Admin DLH</a>";
             }
-            else if($_SESSION['id_admin']=='7'){
+            else if($_SESSION['id_admin']=='6'){
               echo "Admin Persampahan DLH";
             }
              ?>&nbsp;</a></small>
@@ -140,9 +139,9 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <div class="navbar-nav mx-auto bg-light rounded pe-4 py-3 py-lg-0">
         <a href="<?php echo $kontak->webutama ?>" target="blank" class="nav-item nav-link">DLH Kab Mojokerto</a>
-        <a href="labadmin.php" class="nav-item nav-link active">Pengaturan Data</a>
-        <a href="logolab.php" class="nav-item nav-link">Pengaturan Logo</a>
-        <a href="akunlab.php" class="nav-item nav-link">Pengaturan Akun</a>
+        <a href="persampahanadmin.php" class="nav-item nav-link ">Pengaturan Data</a>
+        <a href="persampahanlogo.php" class="nav-item nav-link ">Pengaturan Logo</a>
+        <a href="persampahanakun.php" class="nav-item nav-link active">Pengaturan Akun</a>
         
       </div>
     </div>
@@ -153,81 +152,64 @@
   
 
     <!-- Service Start -->
-    <div class="container-xxl py-5 ">
+    <div class="container-xxl py-5">
       <div class="container">
         <div class="text-center mx-auto" style="max-width: 1000px">
           <h1 class="display-6 mb-3">
-            Edit Dataset UPDT Laboratorium<br>DLH Kab Mojokerto
+            Pengaturan Akun <?php echo $pes->nama_bidang ?><br>DLH Kab Mojokerto
           </h1>
         </div>
 
-        <div class="container mt-3 text-left p-5 pt-1">       
+        <div class="container mt-6 py-6 text-left p-5 pt-1"> 
             <div class="container-xxl py-2">
                 <div class="container">
                   <div class="row g-5">
                     <div class="col-lg-9 wow fadeIn" data-wow-delay="0.1s">
                       <form action="" method="POST" enctype="multipart/form-data">
                         <div class="row g-3">
-                          <div class="col-md-12">
+                          <div class="col-md-8">
                             <div class="form-floating">
-                              <input
+                                <input
                                 type="text"
                                 class="form-control"
                                 id="name"
-                                name="namadok"
-                                placeholder="Nama Dokumen"
-                                value="<?php echo $idsek->nama_dataset ?>"
+                                name="userpengelolaan"
+                                value="<?php echo $apesa->username ?>"
                                 required
                               />
-                              <label for="name">Nama Dokumen</label>
-                            </div>
+                              <label for="name">Username Login</label>
+                                
+                             </div>
                           </div>
-                          <div class="col-md-12">
+                          <div class="col-md-8">
                             <div class="form-floating">
                               <input
-                                type="text"
+                                type="password"
                                 class="form-control"
                                 id="format"
-                                name="formatdok"
-                                placeholder="Format Dokumen"
-                                value="<?php echo $idsek->format_dataset ?>"
+                                name="pass1pengelolaan"
+                                placeholder="Password"
                                 required
                               />
-                              <label for="name">Format Dokumen</label>
+                              <label for="name">Password</label>
                             </div>
                           </div>
-                          <div class="col-12">
+                          <div class="col-md-8">
                             <div class="form-floating">
                               <input
-                                type="text"
+                                type="password"
                                 class="form-control"
-                                id="subject"
-                                name="editdok"
-                                placeholder="Link Dokumen (Edit Link)"
-                                value="<?php echo $idsek->linkedit ?>"
+                                id="format"
+                                name="pass2pengelolaan"
+                                placeholder="Konfirmasi Password"
                                 required
                               />
-                              <label for="subject">Link Dokumen (Edit Link)</label>
-                            </div>
-                          </div>
-
-                          <div class="col-12">
-                            <div class="form-floating">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="subject"
-                                name="viewdok"
-                                placeholder="Link Dokumen (View Only Link)"
-                                value="<?php echo $idsek->linkview ?>"
-                                required
-                              />
-                              <label for="subject">Link Dokumen (View Only Link)</label>
+                              <label for="name">Konfirmasi Password</label>
                             </div>
                           </div>
                           
                           <div class="col-12">
-                                <input type="submit" name="editdataset" value="Edit Dataset Persampahan" class="btn btn-primary py-2 px-4">
+                          <input type="submit" name="pengelolaan" value="Ganti Password" class="btn btn-primary py-2 px-4"/>
                           </div>
                         </div>
                       </form>
@@ -237,32 +219,30 @@
               </div>
           </div>
           <?php 
-          if (isset($_POST['editdataset'])){
-              $namadok     = $_POST['namadok'];
-              $formatdok   = $_POST['formatdok'];
-              $viewdok     = ucwords($_POST['viewdok']);
-              $editdok     = ucwords($_POST['editdok']);
+                    if (isset($_POST['pengelolaan'])) {
+                      $userpengelolaan  = $_POST['userpengelolaan'];
+                      $pass1pengelolaan	= $_POST['pass1pengelolaan'];
+						          $pass2pengelolaan	= $_POST['pass2pengelolaan'];
 
-            $update = mysqli_query($koneksi, "UPDATE dataset SET
-                            nama_dataset = '".$namadok ."',
-                            format_dataset = '".$formatdok ."',
-                            linkview = '".$viewdok ."',
-                            linkedit = '".$editdok."'
-                            WHERE id = '".$idsek->id."' 
-                      ");
-  
-              if ($update) {
-                echo '<script>alert("Edit Dataset UPTD Lab Berhasil!")</script>';
-                echo '<script>window.location="labadmin.php"</script>';
-              }else{
-                echo 'gagal'.mysqli_error($koneksi);
-              }
-            }
-            
-           ?>
+                      if ($pass2pengelolaan != $pass1pengelolaan) {
+                        echo '<script>alert("Gagal Password Tidak Sama!")</script>';
+                      }else{
+                        $updatepasspengelolaan= mysqli_query($koneksi, "UPDATE admin SET
+                                  username = '".$userpengelolaan."',
+                                  password = '".md5($pass1pengelolaan)."'
+                                  WHERE id_admin = '6' ");
+                        if ($updatepasspengelolaan) {
+                          
+                          echo '<script>alert("Update Profil Berhasil!")</script>';
+                          echo '<script>window.location="persampahanakun.php"</script>';
+                        }else{
+                          echo 'gagal'.mysqli_error($koneksi);
+                        }
+                      }
+                    }
+                ?>
 
-      </div>
-    </div>
+
     <!-- Service End -->
 
     

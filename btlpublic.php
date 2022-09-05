@@ -1,23 +1,25 @@
-<?php 
-	session_start();
-  include 'db.php';
- 
-	// cek apakah yang mengakses halaman ini sudah login
-	if($_SESSION['id_admin']==''){
-		echo '<script>window.location="login.php"</script>';
-    echo "<div class='alert'>Gagal!</div>";
-	}
+<?php
+    include 'db.php';
 
-  $logoweb = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 1");
-  $lw = mysqli_fetch_object($logoweb);
+    $datasekretariat = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='2'");
+    $jumlahdataset = mysqli_num_rows($datasekretariat);
 
-  $kontakwebdlh = mysqli_query($koneksi, "SELECT * FROM kontak");
-  $kontak = mysqli_fetch_object($kontakwebdlh);
+    $logoweb = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 1");
+    $lw = mysqli_fetch_object($logoweb);
   
-  $databtl = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='10'");
-  $jumlahbtl = mysqli_num_rows($databtl);
+    $kontakwebdlh = mysqli_query($koneksi, "SELECT * FROM kontak");
+    $kontak = mysqli_fetch_object($kontakwebdlh);
 
-  $logosek = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 2");
+    $datataling = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='10'");
+    $jumlahdatasettaling = mysqli_num_rows($datataling);
+
+    $datalabo = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='7'");
+    $jumlahdatasetlab = mysqli_num_rows($datalabo);
+
+    $kontakwebdlh = mysqli_query($koneksi, "SELECT * FROM kontak");
+    $kontak = mysqli_fetch_object($kontakwebdlh);
+
+    $logosek = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 2");
     $ls = mysqli_fetch_object($logosek);
 
     $logotata = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 3");
@@ -34,13 +36,13 @@
 
     $logolab = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 7");
     $ll = mysqli_fetch_object($logolab);
-  ?>
+?>  
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Tata Lingkungan Admin - Dinas Lingkungan Hidup Kab Mojokerto</title>
+    <title>Tata Lingkungan - Dinas Lingkungan Hidup Kab Mojokerto</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
@@ -104,14 +106,6 @@
           
         </div>
         <div class="col-lg-5 px-5 text-end">
-            <small>Selamat Datang <a class=""><?php 
-            if($_SESSION['id_admin']=='1'){
-              echo "<a href='superadmin.php'>Super Admin DLH</a>";
-            }
-            else if($_SESSION['id_admin']=='10'){
-              echo "Admin Tata Lingkungan DLH";
-            }
-             ?>&nbsp;</a></small>
           <div class="h-100 d-inline-flex align-items-center">
             
                <small id="jam"> </small>
@@ -126,7 +120,7 @@
     <nav
     class="navbar navbar-expand-lg bg-succes navbar-light sticky-top pl-5 px-4 px-lg-5"
   >
-    <a href="index.php" class="navbar-brand d-flex align-items-center ">
+    <a href="index.html" class="navbar-brand d-flex align-items-center ">
       <h1 class="m-0">
         <img
           class="img-fluid me-3"
@@ -147,14 +141,40 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <div class="navbar-nav mx-auto bg-light rounded pe-4 py-3 py-lg-0">
+        <a href="index.php" class="nav-item nav-link">Semua Dataset</a>
         <a href="<?php echo $kontak->webutama ?>" target="blank" class="nav-item nav-link">DLH Kab Mojokerto</a>
-        <a href="btladmin.php" class="nav-item nav-link">Pengaturan Data</a>
-        <a href="btlaturweb.html" class="nav-item nav-link">Pengaturan Bidang</a>
-        <a href="btlaturakun.html" class="nav-item nav-link">Pengaturan Akun</a>
-        
+        <div class="nav-item dropdown">
+          <a
+            href="#"
+            class="nav-link active"
+            >Bidang
+          </a>
+         
+          <div class="dropdown-menu bg-light border-0 m-0">
+          <a href="sekretariatpublic.php" class="dropdown-item " ><?php echo $ls->nama_bidang ?></a>
+            <a href="btlpublic.php" class="dropdown-item active"><?php echo $lt->nama_bidang ?></a>
+            <a href="penaatanpublic.php" class="dropdown-item"><?php echo $lp->nama_bidang ?></a>
+            <a href="pengendalianpublic.php" class="dropdown-item"><?php echo $lpe->nama_bidang ?></a>
+            <a href="persampahanpublic.php" class="dropdown-item"><?php echo $lsa->nama_bidang ?></a>
+            <a href="labpublic.php" class="dropdown-item"><?php echo $ll->nama_bidang?></a>
+            </div>
+        </div>
+        <div class="nav-item dropdown">
+          <a target="blank"
+            href="#"
+            class="nav-link"
+            >Panduan
+          </a>
+         
+          <div class="dropdown-menu bg-light border-0 m-0">
+            <a href="panduanpublic.php" target="blank" class="dropdown-item">Panduan Lihat Data</a>
+            <a href="panduanunduh.php" target="blank" class="dropdown-item">Panduan Unduh Data</a>
+            
+          </div>
+        </div>
       </div>
     </div>
-    <a href="logout.php" class="btn btn-danger px-3 d-none d-lg-block"><img src="img/logout.png" width="30px" alt=""> Logout</a>
+    <a href="" class="btn btn-success px-3 d-none d-lg-block"><img src="" alt="">Login Admin</a>
   </nav>
     <!-- Navbar End -->
 
@@ -165,107 +185,45 @@
       <div class="container">
         <div class="text-center mx-auto" style="max-width: 1000px">
           <h1 class="display-6 mb-3">
-            Tambah Dataset Bidang Tata Lingkungan<br>DLH Kab Mojokerto
+            Dataset <?php echo $ls->nama_bidang ?><br>DLH Kab Mojokerto
           </h1>
         </div>
 
         <div class="container mt-3 text-left p-5">       
-            <div class="container-xxl py-2">
-                <div class="container">
-                  <div class="row g-5">
-                    <div class="col-lg-9 wow fadeIn" data-wow-delay="0.1s">
-                      <form action="" method="POST" enctype="multipart/form-data">
-                        <div class="row g-3">
-                          <div class="col-md-12">
-                            <div class="form-floating">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="name"
-                                name="namadok"
-                                placeholder="Nama Dokumen"
-                                required
-                              />
-                              <label for="name">Nama Dokumen</label>
-                            </div>
-                          </div>
-                          <div class="col-md-12">
-                            <div class="form-floating">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="format"
-                                name="formatdok"
-                                placeholder="Format Dokumen"
-                                required
-                              />
-                              <label for="name">Format Dokumen</label>
-                            </div>
-                          </div>
-                          <div class="col-12">
-                            <div class="form-floating">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="subject"
-                                name="editdok"
-                                placeholder="Link Dokumen (Edit Link)"
-                                required
-                              />
-                              <label for="subject">Link Dokumen (Edit Link)</label>
-                            </div>
-                          </div>
+        <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Nama Dokumen</th>
+                  <th class="text-center">Format Dokumen</th>
+                  <th class="text-center">Lihat dan Unduh</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <?php
+                      if($jumlahdatasettaling==0){
+                   ?>  
+                      <tr>
+                        <td colspan="3" class="text-center">Dataset Tidak Tersedia</td>
+                      </tr>   
+                      <?php
+                      }
+                      else{
 
-                          <div class="col-12">
-                            <div class="form-floating">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="subject"
-                                name="viewdok"
-                                placeholder="Link Dokumen (View Only Link)"
-                                required
-                              />
-                              <label for="subject">Link Dokumen (View Only Link)</label>
-                            </div>
-                          </div>
-                          
-                          <div class="col-12">
-                                <input type="submit" name="tambahdataset" value="Tambah Dataset" class="btn btn-success py-2 px-4">
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                        while($data=mysqli_fetch_array($datataling)){
+                          ?>
+                          <tr>
+                            <td><?php echo $data['nama_dataset'] ?></td>
+                            <td class="text-center"><?php echo $data['format_dataset']?></td>
+                            <td class="text-center"> <a href="<?php echo $data['linkview'] ?>" target="_blank"><img src="img/google-docs.png" alt="Dataset" width="25px" ></a></td>
+                          </tr>
+                          <?php
+                        }
+
+                      }
+                  ?>
+              </tbody>
+            </table>
           </div>
-          <?php 
-          if (isset($_POST['tambahdataset'])){
-              $id          = 10;
-              $namadok     = $_POST['namadok'];
-              $formatdok   = $_POST['formatdok'];
-              $viewdok     = $_POST['viewdok'];
-              $editdok     = $_POST['editdok'];
-
-            $insert = mysqli_query($koneksi, "INSERT INTO dataset VALUES ( 
-                            null,
-                          '".$id."',
-                          '".$namadok."',
-                          '".$formatdok."',
-                          '".$viewdok."',
-                          '".$editdok."'
-                      )");
-  
-              if ($insert) {
-                echo '<script>alert("Tambah Dataset Tata Lingkungan Berhasil!")</script>';
-                echo '<script>window.location="btladmin.php"</script>';
-              }else{
-                echo 'gagal'.mysqli_error($koneksi);
-              }
-            }
-            
-           ?>
 
       </div>
     </div>
@@ -274,7 +232,7 @@
     
     <!-- Footer Start -->
     <div
-      class="container-fluid bg-dark footer mt-5 wow fadeIn"
+      class="container-fluid bg-dark footer mt-5 wow fadeIn position-absolute bottom-0 end-0"
       data-wow-delay="0.1s"
     >
      

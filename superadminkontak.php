@@ -3,7 +3,7 @@
   include 'db.php';
  
 	// cek apakah yang mengakses halaman ini sudah login
-	if($_SESSION['id_admin']==''){
+	if($_SESSION['id_admin']!="1"){
 		echo '<script>window.location="login.php"</script>';
     echo "<div class='alert'>Gagal!</div>";
 	}
@@ -13,32 +13,19 @@
 
   $logoweb = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 1");
   $lw = mysqli_fetch_object($logoweb);
-  
-  $datasekretariat = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='7'");
-  $jumlahdataset = mysqli_num_rows($datasekretariat);
-  
-  $idsekretariat = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id = '".$_GET['id']."'");
-  if(mysqli_num_rows($idsekretariat) == 0){
-      echo '<script>window.location="persampahanadmin.php"</script>';
-    }
-
-  $idsek = mysqli_fetch_object($idsekretariat);
-  $logolab = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 7");
-  $ll = mysqli_fetch_object($logolab);
-?>
-
+  ?>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Laboratorium Admin - Dinas Lingkungan Hidup Kab Mojokerto</title>
+    <title>Super Akun - Dinas Lingkungan Hidup Kab Mojokerto</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
 
     <!-- Favicon -->
-    <link href="img/<?php echo $ll->nama_files ?>" rel="icon" />
+    <link href="img/kab.png" rel="icon" />
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -96,14 +83,7 @@
           
         </div>
         <div class="col-lg-5 px-5 text-end">
-            <small>Selamat Datang <a class=""><?php 
-            if($_SESSION['id_admin']=='1'){
-              echo "<a href='superadmin.php'>Super Admin DLH</a>";
-            }
-            else if($_SESSION['id_admin']=='7'){
-              echo "Admin Persampahan DLH";
-            }
-             ?>&nbsp;</a></small>
+            <small>Selamat Datang <a class="">Super Admin DLH&nbsp;</a></small>
           <div class="h-100 d-inline-flex align-items-center">
             
                <small id="jam"> </small>
@@ -139,10 +119,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <div class="navbar-nav mx-auto bg-light rounded pe-4 py-3 py-lg-0">
-        <a href="<?php echo $kontak->webutama ?>" target="blank" class="nav-item nav-link">DLH Kab Mojokerto</a>
-        <a href="labadmin.php" class="nav-item nav-link active">Pengaturan Data</a>
-        <a href="logolab.php" class="nav-item nav-link">Pengaturan Logo</a>
-        <a href="akunlab.php" class="nav-item nav-link">Pengaturan Akun</a>
+      <a href="<?php echo $kontak->webutama ?>" target="blank" class="nav-item nav-link">DLH Kab Mojokerto</a>
+        <a href="superadmin.php" class="nav-item nav-link">Semua Dataset</a>
+        <a href="superadminweb.php" class="nav-item nav-link ">Pengaturan Bidang</a>
+        <a href="superadminakun.php" class="nav-item nav-link">Pengaturan Akun</a>
+        <a href="superadminkontak.php" class="nav-item nav-link active">Pengaturan Kontak</a>
         
       </div>
     </div>
@@ -153,81 +134,66 @@
   
 
     <!-- Service Start -->
-    <div class="container-xxl py-5 ">
+    <div class="container-xxl py-5">
       <div class="container">
         <div class="text-center mx-auto" style="max-width: 1000px">
-          <h1 class="display-6 mb-3">
-            Edit Dataset UPDT Laboratorium<br>DLH Kab Mojokerto
+          <h1 class="display-6 my-6 mb-3">
+            Pengaturan Akun Super Admin<br>DLH Kab Mojokerto
           </h1>
         </div>
 
-        <div class="container mt-3 text-left p-5 pt-1">       
+        <!-- Akun Super Admin-->
+        <div class="container mt-3 py-1 text-left p-5">   
             <div class="container-xxl py-2">
                 <div class="container">
-                  <div class="row g-5">
+                  <div class="row g-1">
                     <div class="col-lg-9 wow fadeIn" data-wow-delay="0.1s">
                       <form action="" method="POST" enctype="multipart/form-data">
                         <div class="row g-3">
-                          <div class="col-md-12">
+                          <div class="col-md-8">
                             <div class="form-floating">
-                              <input
+                                <input
                                 type="text"
                                 class="form-control"
-                                id="name"
-                                name="namadok"
-                                placeholder="Nama Dokumen"
-                                value="<?php echo $idsek->nama_dataset ?>"
+                                name="telp"
+                                value="<?php echo $kontak->telpon ?>"
                                 required
                               />
-                              <label for="name">Nama Dokumen</label>
-                            </div>
+                              <label for="name">Nomor Telp</label>
+                             </div>
                           </div>
-                          <div class="col-md-12">
+                          <div class="col-md-8">
                             <div class="form-floating">
                               <input
-                                type="text"
+                                type="email"
                                 class="form-control"
                                 id="format"
-                                name="formatdok"
-                                placeholder="Format Dokumen"
-                                value="<?php echo $idsek->format_dataset ?>"
+                                placeholder="Email"
+                                name="mail"
+                                value="<?php echo $kontak->email ?>"
                                 required
                               />
-                              <label for="name">Format Dokumen</label>
+                              <label for="name">Email</label>
                             </div>
                           </div>
-                          <div class="col-12">
+                          <div class="col-md-8">
                             <div class="form-floating">
                               <input
-                                type="text"
+                                type="link"
                                 class="form-control"
-                                id="subject"
-                                name="editdok"
-                                placeholder="Link Dokumen (Edit Link)"
-                                value="<?php echo $idsek->linkedit ?>"
+                                id="format"
+                                placeholder="Link"
+                                name="linkweb"
+                                value="<?php echo $kontak->webutama ?>"
                                 required
                               />
-                              <label for="subject">Link Dokumen (Edit Link)</label>
-                            </div>
-                          </div>
-
-                          <div class="col-12">
-                            <div class="form-floating">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="subject"
-                                name="viewdok"
-                                placeholder="Link Dokumen (View Only Link)"
-                                value="<?php echo $idsek->linkview ?>"
-                                required
-                              />
-                              <label for="subject">Link Dokumen (View Only Link)</label>
+                              <label for="name">Link Web Utama DLH Kab Mojokerto</label>
                             </div>
                           </div>
                           
                           <div class="col-12">
-                                <input type="submit" name="editdataset" value="Edit Dataset Persampahan" class="btn btn-primary py-2 px-4">
+                            <input type="submit" name="tetapkontak" value="Tetapkan Kontak" class="btn btn-primary py-2 px-4"/>
+                           
                           </div>
                         </div>
                       </form>
@@ -237,29 +203,29 @@
               </div>
           </div>
           <?php 
-          if (isset($_POST['editdataset'])){
-              $namadok     = $_POST['namadok'];
-              $formatdok   = $_POST['formatdok'];
-              $viewdok     = ucwords($_POST['viewdok']);
-              $editdok     = ucwords($_POST['editdok']);
+					if(isset($_POST['tetapkontak'])){
 
-            $update = mysqli_query($koneksi, "UPDATE dataset SET
-                            nama_dataset = '".$namadok ."',
-                            format_dataset = '".$formatdok ."',
-                            linkview = '".$viewdok ."',
-                            linkedit = '".$editdok."'
-                            WHERE id = '".$idsek->id."' 
-                      ");
-  
-              if ($update) {
-                echo '<script>alert("Edit Dataset UPTD Lab Berhasil!")</script>';
-                echo '<script>window.location="labadmin.php"</script>';
-              }else{
-                echo 'gagal'.mysqli_error($koneksi);
-              }
-            }
-            
-           ?>
+						$telp		= $_POST['telp'];
+						$mail	    = $_POST['mail'];
+						$linkweb	= $_POST['linkweb'];
+
+						$update = mysqli_query($koneksi, "UPDATE kontak SET
+												telpon = '".$telp."',
+												email = '".$mail."',
+												webutama = '".$linkweb."'
+												");
+						if ($update) {
+							
+							echo '<script>alert("Update Profil Berhasil!")</script>';
+                            echo '<script>window.location="superadminkontak.php"</script>';
+						}else{
+							echo 'gagal'.mysqli_error($koneksi);
+						}
+						
+					}
+				 ?>
+
+
 
       </div>
     </div>

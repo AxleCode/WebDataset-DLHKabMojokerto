@@ -4,6 +4,12 @@
                         echo "<script>alert('Username dan Password tidak sesuai !');</script>";
                       }
                     }
+                    include'db.php';
+
+                    $logoweb = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 1");
+                    $lw = mysqli_fetch_object($logoweb);
+
+
                   ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +50,7 @@
                   <form action="cek_login.php" method="post">
   
                     <div class="d-flex align-items-center mb-3 pb-1">
-                      <img src="img/logo.png" alt="" width="350px"><i  style="color: #ff6219;"></i>
+                      <img src="img/<?php echo $lw->nama_files ?>" alt="" width="350px"><i  style="color: #ff6219;"></i>
                     </div>
   
                     <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Login to a Specific Admin Account</h5>

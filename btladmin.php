@@ -16,19 +16,21 @@
   
   $databtl = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='10'");
   $jumlahbtl = mysqli_num_rows($databtl);
+  $logotata = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 3");
+  $lt = mysqli_fetch_object($logotata);
   ?>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>BTL Admin - Dinas Lingkungan Hidup Kab Mojokerto</title>
+    <title>Tata Lingkungan Admin - Dinas Lingkungan Hidup Kab Mojokerto</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
 
     <!-- Favicon -->
-    <link href="img/kab.png" rel="icon" />
+    <link href="img/<?php echo $lt->nama_files ?>" rel="icon" />
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -129,7 +131,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <div class="navbar-nav mx-auto bg-light rounded pe-4 py-3 py-lg-0">
-        <a href="http://dlh.mojokertokab.go.id/" target="blank" class="nav-item nav-link">DLH Kab Mojokerto</a>
+        <a href="<?php echo $kontak->webutama ?>" target="blank" class="nav-item nav-link">DLH Kab Mojokerto</a>
         <a href="btladmin.php" class="nav-item nav-link active">Pengaturan Data</a>
         <a href="btladminlogo.php" class="nav-item nav-link">Pengaturan Logo</a>
         <a href="btladminakun.php" class="nav-item nav-link">Pengaturan Akun</a>

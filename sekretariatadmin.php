@@ -16,6 +16,9 @@
 
     $datasekretariat = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='2'");
     $jumlahdataset = mysqli_num_rows($datasekretariat);
+    
+    $logosek = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 2");
+    $ls = mysqli_fetch_object($logosek);
   ?>
 
 <!DOCTYPE html>
@@ -28,7 +31,7 @@
     <meta content="" name="description" />
 
     <!-- Favicon -->
-    <link href="img/kab.png" rel="icon" />
+    <link href="img/<?php echo $ls->nama_files ?>" rel="icon" />
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -7,6 +7,8 @@
 		echo '<script>window.location="login.php"</script>';
     echo "<div class='alert'>Gagal!</div>";
 	}
+  $logoweb = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 1");
+  $lw = mysqli_fetch_object($logoweb);
 
   $akunsuperadmin = mysqli_query($koneksi, "SELECT * FROM admin WHERE id_admin ='1'");
   $asa = mysqli_fetch_object($akunsuperadmin);
@@ -28,6 +30,29 @@
 
   $akuntaling = mysqli_query($koneksi, "SELECT * FROM admin WHERE id_admin ='10'");
   $ataling = mysqli_fetch_object($akuntaling);
+
+  $kontakwebdlh = mysqli_query($koneksi, "SELECT * FROM kontak");
+  $kontak = mysqli_fetch_object($kontakwebdlh);
+
+  $sekretariat = mysqli_query($koneksi, "SELECT * FROM logo WHERE id=2");
+  $se = mysqli_fetch_object($sekretariat);
+
+  $taling = mysqli_query($koneksi, "SELECT * FROM logo WHERE id=3");
+  $ta = mysqli_fetch_object($taling);
+
+  $penaatan = mysqli_query($koneksi, "SELECT * FROM logo WHERE id=4");
+  $pe = mysqli_fetch_object($penaatan);
+
+  $pengendalian = mysqli_query($koneksi, "SELECT * FROM logo WHERE id=5");
+  $peng = mysqli_fetch_object($pengendalian);
+
+  $pengsamp = mysqli_query($koneksi, "SELECT * FROM logo WHERE id=6");
+  $pes = mysqli_fetch_object($pengsamp);
+
+  $labo = mysqli_query($koneksi, "SELECT * FROM logo WHERE id=7");
+  $lab = mysqli_fetch_object($labo);
+
+
   ?>
 
 <!DOCTYPE html>
@@ -89,11 +114,11 @@
         <div class="col-lg-7 px-5 text-start">
           <div class="h-100 d-inline-flex align-items-center me-4">
             <small class="fa fa-phone-alt me-2"></small>
-            <small>(0321) 593178</small>
+            <small><?php echo $kontak->telpon ?></small>
           </div>
           <div class="h-100 d-inline-flex align-items-center me-4">
             <small class="far fa-envelope-open me-2"></small>
-            <small>blhkabupatenmojokerto@gmail.com</small>
+            <small><?php echo $kontak->email ?></small>
           </div>
           
         </div>
@@ -117,7 +142,7 @@
       <h1 class="m-0">
         <img
           class="img-fluid me-3"
-          src="img/logo.png"
+          src="img/<?php echo $lw->nama_files ?>"
           width="200px"
           height="600px"
           alt=""
@@ -134,10 +159,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <div class="navbar-nav mx-auto bg-light rounded pe-4 py-3 py-lg-0">
-      <a href="http://dlh.mojokertokab.go.id/" target="blank" class="nav-item nav-link">DLH Kab Mojokerto</a>
+      <a href="<?php echo $kontak->webutama ?>" target="blank" class="nav-item nav-link">DLH Kab Mojokerto</a>
         <a href="superadmin.php" class="nav-item nav-link">Semua Dataset</a>
         <a href="superadminweb.php" class="nav-item nav-link ">Pengaturan Bidang</a>
         <a href="superadminakun.php" class="nav-item nav-link active">Pengaturan Akun</a>
+        <a href="superadminkontak.php" class="nav-item nav-link ">Pengaturan Kontak</a>
         
       </div>
     </div>
@@ -242,7 +268,7 @@
 
           <!-- Akun Admin Sekretariat-->
         <div class="container mt-6 py-6 text-left p-5"> 
-            <p class="display-6">Akun Admin Bidang Sekretariat</p>      
+            <p class="display-6">Akun Admin <?php echo $se->nama_bidang ?></p>      
             <div class="container-xxl py-2">
                 <div class="container">
                   <div class="row g-1">
@@ -325,7 +351,7 @@
 
            <!-- Akun Admin BTL-->
         <div class="container mt-6 py-6 text-left p-5"> 
-            <p class="display-6">Akun Admin Bidang Tata Lingkungan</p>      
+            <p class="display-6">Akun Admin <?php echo $ta->nama_bidang ?></p>      
             <div class="container-xxl py-2">
                 <div class="container">
                   <div class="row g-5">
@@ -340,6 +366,7 @@
                                 id="name"
                                 name="usertaling"
                                 value="<?php echo $ataling->username ?>"
+                                required
                               />
                               <label for="name">Username Login</label>
                                 
@@ -353,6 +380,7 @@
                                 id="format"
                                 name="pass1taling"
                                 placeholder="Password"
+                                required
                               />
                               <label for="name">Password</label>
                             </div>
@@ -365,6 +393,7 @@
                                 id="format"
                                 name="pass2taling"
                                 placeholder="Konfirmasi Password"
+                                required
                               />
                               <label for="name">Konfirmasi Password</label>
                             </div>
@@ -407,7 +436,7 @@
 
            <!-- Akun Admin BPenaatan-->
         <div class="container mt-6 py-6 text-left p-5"> 
-            <p class="display-6">Akun Admin Bidang Penaatan</p>      
+            <p class="display-6">Akun Admin <?php echo $pe->nama_bidang ?></p>      
             <div class="container-xxl py-2">
                 <div class="container">
                   <div class="row g-5">
@@ -422,6 +451,7 @@
                                 id="name"
                                 name="userpenaatan"
                                 value="<?php echo $ap->username ?>"
+                                required
                               />
                               <label for="name">Username Login</label>
                                 
@@ -435,6 +465,7 @@
                                 id="format"
                                 name="pass1penaatan"
                                 placeholder="Password"
+                                required
                               />
                               <label for="name">Password</label>
                             </div>
@@ -447,6 +478,7 @@
                                 id="format"
                                 name="pass2penaatan"
                                 placeholder="Konfirmasi Password"
+                                required
                               />
                               <label for="name">Konfirmasi Password</label>
                             </div>
@@ -488,7 +520,7 @@
 
            <!-- Akun Admin BPengendalian-->
         <div class="container mt-6 py-6 text-left p-5"> 
-            <p class="display-6">Akun Admin Bidang Pengendalian</p>      
+            <p class="display-6">Akun Admin <?php echo $peng->nama_bidang ?></p>      
             <div class="container-xxl py-2">
                 <div class="container">
                   <div class="row g-5">
@@ -503,6 +535,7 @@
                                 id="name"
                                 name="userpengendalian"
                                 value="<?php echo $apeng->username ?>"
+                                required
                               />
                               <label for="name">Username Login</label>
                               
@@ -516,6 +549,7 @@
                                 id="format"
                                 name="pass1pengendalian"
                                 placeholder="Password"
+                                required
                               />
                               <label for="name">Password</label>
                             </div>
@@ -528,6 +562,7 @@
                                 id="format"
                                 name="pass2pengendalian"
                                 placeholder="Konfirmasi Password"
+                                required
                               />
                               <label for="name">Konfirmasi Password</label>
                             </div>
@@ -570,7 +605,7 @@
 
           <!-- Akun Admin BPS-->
         <div class="container mt-6 py-6 text-left p-5"> 
-            <p class="display-6">Akun Admin Bidang Pengelolaan Sampah</p>      
+            <p class="display-6">Akun Admin <?php echo $pes->nama_bidang ?></p>      
             <div class="container-xxl py-2">
                 <div class="container">
                   <div class="row g-5">
@@ -585,6 +620,7 @@
                                 id="name"
                                 name="userpengelolaan"
                                 value="<?php echo $apesa->username ?>"
+                                required
                               />
                               <label for="name">Username Login</label>
                                 
@@ -598,6 +634,7 @@
                                 id="format"
                                 name="pass1pengelolaan"
                                 placeholder="Password"
+                                required
                               />
                               <label for="name">Password</label>
                             </div>
@@ -610,6 +647,7 @@
                                 id="format"
                                 name="pass2pengelolaan"
                                 placeholder="Konfirmasi Password"
+                                required
                               />
                               <label for="name">Konfirmasi Password</label>
                             </div>
@@ -651,7 +689,7 @@
 
           <!-- Akun Admin UPDT Lab-->
         <div class="container mt-6 py-6 text-left p-5"> 
-            <p class="display-6">Akun Admin UPDT Laboratorium</p>      
+            <p class="display-6">Akun Admin <?php echo $lab->nama_bidang ?></p>      
             <div class="container-xxl py-2">
                 <div class="container">
                   <div class="row g-5">
@@ -666,6 +704,7 @@
                                 id="name"
                                 name="userlab"
                                 value="<?php echo $alab->username ?>"
+                                required
                               />
                               <label for="name">Username Login</label>
                                 
@@ -679,6 +718,7 @@
                                 id="format"
                                 name="pass1lab"
                                 placeholder="Password"
+                                required
                               />
                               <label for="name">Password</label>
                             </div>
@@ -691,6 +731,7 @@
                                 id="format"
                                 name="pass2lab"
                                 placeholder="Konfirmasi Password"
+                                required
                               />
                               <label for="name">Konfirmasi Password</label>
                             </div>

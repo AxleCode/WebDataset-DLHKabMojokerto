@@ -16,19 +16,22 @@
   
   $datasekretariat = mysqli_query($koneksi, "SELECT * FROM dataset WHERE id_dataset ='5'");
   $jumlahdataset = mysqli_num_rows($datasekretariat);
+
+  $logopengendalian = mysqli_query($koneksi, "SELECT * FROM logo WHERE id = 5");
+  $lpe = mysqli_fetch_object($logopengendalian);
   ?>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Pengendalian - Dinas Lingkungan Hidup Kab Mojokerto</title>
+    <title>Pengendalian Admin - Dinas Lingkungan Hidup Kab Mojokerto</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
 
     <!-- Favicon -->
-    <link href="img/kab.png" rel="icon" />
+    <link href="img/<?php echo $lpe->nama_files ?>" rel="icon" />
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
